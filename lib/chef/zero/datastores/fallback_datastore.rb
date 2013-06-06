@@ -17,6 +17,7 @@
 #
 
 require 'forwardable'
+require 'set'
 module Chef
   module Zero
     module DataStores
@@ -39,7 +40,7 @@ module Chef
         end
 
         def list(path)
-          Set(all_stores.map{|s| s.list(path)}).to_a.sort
+          Set.new(all_stores.map{|s| s.list(path)}.flatten).to_a.sort
         end
 
         def exists?(path)
@@ -51,6 +52,7 @@ module Chef
         end
 
         private
+
         def all_stores
           [@read_write_store, *@read_only_stores]
         end

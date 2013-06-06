@@ -82,5 +82,17 @@ module Chef::Zero::DataStores
         end
       end
     end
+
+    describe '#list' do
+      subject {fallback_store.list(['path'])}
+      before do
+        read_write_store.stub(:list) {['b','z']}
+        read_only_store1.stub(:list) {['b']}
+        read_only_store2.stub(:list) {['a']}
+      end
+      it 'should combine sort and remove duplicates' do
+        should == ['a', 'b', 'z']
+      end
+    end
   end
 end
