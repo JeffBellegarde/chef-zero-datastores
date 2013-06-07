@@ -94,5 +94,16 @@ module Chef::Zero::DataStores
         should == ['a', 'b', 'z']
       end
     end
+
+    describe '#exists?' do
+      subject {fallback_store.exists?(['path'])}
+      before do
+        read_write_store.should_receive(:exists?) {false}
+        read_only_store1.should_receive(:exists?) {true}
+      end
+      xit 'should return true if any store contains the path' do
+        should == true
+      end
+    end
   end
 end

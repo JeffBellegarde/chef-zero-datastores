@@ -40,15 +40,15 @@ module Chef
         end
 
         def list(path)
-          Set.new(all_stores.map{|s| s.list(path)}.flatten).to_a.sort
+          Set.new(all_stores.map {|s| s.list(path)}.flatten).to_a.sort
         end
 
         def exists?(path)
-          !all_stores.first{|s| s.exists?(path)}.nil?
+          !(all_stores.first {|s| s.exists?(path)}.nil?)
         end
 
         def exists_dir?(path)
-          !all_stores.first{|s| s.exists_dir?(path)}.nil?
+          !all_stores.first {|s| s.exists_dir?(path)}.nil?
         end
 
         private
