@@ -44,11 +44,11 @@ module Chef
         end
 
         def exists?(path)
-          !(all_stores.first {|s| s.exists?(path)}.nil?)
+          !(all_stores.find {|s| s.exists?(path)}.nil?)
         end
 
         def exists_dir?(path)
-          !all_stores.first {|s| s.exists_dir?(path)}.nil?
+          !(all_stores.find {|s| s.exists_dir?(path)}.nil?)
         end
 
         private

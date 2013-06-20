@@ -101,7 +101,18 @@ module Chef::Zero::DataStores
         read_write_store.should_receive(:exists?) {false}
         read_only_store1.should_receive(:exists?) {true}
       end
-      xit 'should return true if any store contains the path' do
+      it 'should return true if any store contains the path' do
+        should == true
+      end
+    end
+
+    describe '#exists_dir?' do
+      subject {fallback_store.exists_dir?(['path'])}
+      before do
+        read_write_store.should_receive(:exists_dir?) {false}
+        read_only_store1.should_receive(:exists_dir?) {true}
+      end
+      it 'should return true if any store contains the path' do
         should == true
       end
     end
