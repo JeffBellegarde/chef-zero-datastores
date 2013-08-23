@@ -10,9 +10,9 @@ module Chef::Zero::DataStores
     end
 
     describe '#list' do
-      subject {filesystem_store.list(['dir'])}
+      subject {filesystem_store.list(['dir'].sort)}
       it 'children can be seen' do
-        should == ['child', 'child2']
+        should == ['child', 'child2'].sort
       end
     end
 
