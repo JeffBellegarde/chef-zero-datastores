@@ -19,6 +19,7 @@
 require 'forwardable'
 require 'set'
 require 'chef_zero'
+require 'chef_zero/data_store/data_not_found_error'
 require 'json'
 
 module Chef

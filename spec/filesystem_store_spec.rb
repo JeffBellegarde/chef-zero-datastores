@@ -2,17 +2,27 @@
 module Chef::Zero::DataStores
   describe FilesystemStore do
     let(:filesystem_store) {FilesystemStore.new(File.expand_path(File.join(File.dirname(__FILE__), "../example_files")))}
-    subject {fielsystem_store}
+    subject {filesystem_store}
 
     describe '#get' do
-      subject {filesystem_store.get(['dir','child'])}
+      let(:path) { ['dir','child'] }
+      subject { filesystem_store.get(path) }
       it { should == {'a' => 1}}
+      context 'when the file does not exist' do
+        let(:path) { ['missing'] }
+        it { expect{subject}.to raise_error(ChefZero::DataStore::DataNotFoundError) {|error| expect(error.path).to eq(path) } }
+      end
     end
 
     describe '#list' do
-      subject {filesystem_store.list(['dir'].sort)}
+      let(:path) { ['dir'] }
+      subject {filesystem_store.list(path).sort}
       it 'children can be seen' do
         should == ['child', 'child2'].sort
+      end
+      context 'when the directory does not exist' do
+        let(:path) { ['missing'] }
+        it { expect{subject}.to raise_error(ChefZero::DataStore::DataNotFoundError) {|error| expect(error.path).to eq(path) } }
       end
     end
 
