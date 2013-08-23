@@ -2,9 +2,9 @@ module Chef::Zero::DataStores
   describe FallbackStore do
     let(:fallback_store) {FallbackStore.new(read_write_store, read_only_store1, read_only_store2)}
     subject {fallback_store}
-    let(:read_write_store) {mock(:read_write_store)}
-    let(:read_only_store1) {mock(:read_only_store1)}
-    let(:read_only_store2) {mock(:read_only_store2)}
+    let(:read_write_store) { double(:read_write_store) }
+    let(:read_only_store1) { double(:read_only_store1) }
+    let(:read_only_store2) { double(:read_only_store2) }
 
     describe '#clear' do
       it 'delegates to the read write store' do
